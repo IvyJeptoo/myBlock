@@ -22,7 +22,7 @@ class SignUpView(View):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Hey {username}, your account has been created successfully!')
             
-            return redirect(to='/')
+            return redirect(to='login')
         
         return render(request,self.template_name,{'form':form})
     

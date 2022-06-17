@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path,include
 from hood.views import CustomLoginView
 from hood.forms import LoginForm
+from django.urls import re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('hood.urls')),    
     path('', include('django.contrib.auth.urls')),
-    path('login/',CustomLoginView.as_view(authentication_form=LoginForm),name='login')
+    path('login/',CustomLoginView.as_view(authentication_form=LoginForm),name='login'),
+    re_path(r'^oauth/', include('social_django.urls', namespace='social'))
 ]
