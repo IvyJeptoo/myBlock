@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-
+{% block content %}
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
     <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
@@ -44,8 +44,8 @@
                                     ...
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    
+                                    <button type="button" class="btn btn-success btn-sm">Post</button>
                                 </div>
                             </div>
                         </div>
@@ -187,15 +187,20 @@
 
                         <div class="col-lg-6">
                             <div class="member" data-aos="zoom-in" data-aos-delay="100">
-                                <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                                <div class="pic"> <a href="">
+                                    <img src="" class="img-fluid" alt="">
+
+                                </a> 
                                 </div>
                                 <div class="member-info">
                                     <h4>Walter White</h4>
                                     <span>Chief Executive Officer</span>
                                     <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
                                     <div class="social">
-                                        <a href=""><i class="bi bi-eye-fill" style="color: white;"></i></a>
-                                        <a href=""><i class="bi bi-chat-fill" style="color: white;"></i></a>
+                                        <a href="{% url 'comment' %}"><i class="bi bi-eye-fill"
+                                                style="color: white;"></i></a>
+                                        <a href="{% url 'comment' %}"><i class="bi bi-chat-fill"
+                                                style="color: white;"></i></a>
 
                                     </div>
                                 </div>
@@ -400,3 +405,5 @@
     
    
 </main><!-- End #main -->
+
+{% endblock %}
