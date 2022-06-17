@@ -166,3 +166,5 @@ cloudinary.config(
   api_key = config('API_KEY'),
   api_secret = config('API_SECRET'),
 )
+# remember me cookie session set to 30 days
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
