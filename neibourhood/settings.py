@@ -158,8 +158,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
 
-# LOGIN_REDIRECT_URL = '/project'
-# LOGOUT_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/index'
 
 cloudinary.config( 
   cloud_name =config('CLOUD_NAME'),
