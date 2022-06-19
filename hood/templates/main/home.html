@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load bootstrap4 %}
 
 {% block content %}
 <!-- ======= Hero Section ======= -->
@@ -157,11 +158,11 @@
                     </div>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-outline-success btn-sm mt-4" data-toggle="modal"
-                        data-target="#exampleModalCenter">Create Post</button>
+                        data-target="#exampleModalCenterPost">Create Post</button>
 
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="exampleModalCenterPost" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -172,12 +173,21 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                     <form method="POST">
+                                         {% csrf_token %}
+                                         {% bootstrap_form createpost %}
+
+                                         <div class="form-row">
+                                             <div class="col-md-10 offset-md-1">
+                                                 <div class="form-group mt-0 mb-1">
+                                                     <button name="login" class="col-md-12 btn btn-dark"
+                                                         id="login">Create</button>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -199,7 +209,7 @@
                                     <span>{{post.pub_date}}</span>
                                     <div class="social">
                                         
-                                        <a href="{% url 'comment' %}"><i class="bi bi-chat-fill"
+                                        <a href="{% url 'comment' post.id %}"><i class="bi bi-chat-fill"
                                                 style="color: white;"></i></a>
 
                                     </div>

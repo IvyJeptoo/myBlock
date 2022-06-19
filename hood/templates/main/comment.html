@@ -1,39 +1,55 @@
 {% extends 'main/base.html' %}
+{% load bootstrap4 %}
 {% load static %}
 
 {% block content %}
 <section class="section-bg">
-    <div class="container" style="margin-top: 7rem;">
+    <div class="container" style="margin-top: 6rem;">
         <div class="card pb-3">
             <div class="row">
-                <div class="col-md-7 ml-3">
-                    <img style="border-radius: 10px; height: 70%; margin: 6%; width: 70%;" src=""
-                        class="card-img">
-                </div>
-                <div class="col-md-3 mt-2">
+                <div class="col-md-5 ml-3">                   
 
-                    <img src="" class="rounded-circle border ml-3 mt-2  mr-3"
+                    <div class="col-md-6">
+                        <div class="member" data-aos="zoom-in" data-aos-delay="100">
+                            
+                            <div class="member-info" style="margin-top: 5rem; margin-left: 3rem;">
+                                
+                                
+                                <h4><i class="bx bxs-quote-alt-left quote-icon-left"></i>{{post.description}} <i
+                                        class="bx bxs-quote-alt-right quote-icon-right"></i></h4>
+                                <span class="text-muted">{{post.pub_date}}</span>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-md-5 mt-2">
+
+                    <img src="{{post.user.profile.photo.url}}" class="rounded-circle border ml-3 mt-2  mr-3"
                         alt="" width="35" height="35">
-                    <a href=""
-                        class="mt-4 user text-dark"><strong></strong></a>
+                    <span><strong>{{post.user.username}}</strong></span>
 
 
                     <hr style="width:96%">
 
-                    
+                    {% for comment in comments %}
                     <div>
-                        <div class="ml-2"><strong></strong> <span
-                                class="text-secondary"></span>
+                        <div class="ml-2"><strong>{{ comment.user.user.username}}</strong> <span
+                                class="text-secondary">:{{comment.comment}}</span>
                         </div>
                     </div>
-                    
+                    {% empty %}
                     <p class="ml-3">No comments here yet</p>
-                    
-                    <hr style="width:96%; margin-top:84%;">
+                    {% endfor %}
+                    <hr style="width:96%; margin-top:40%;">
                     <form class="form" action="" method="post" novalidate enctype="multipart/form-data">
                         {% csrf_token %}
+                    
                         <div class="row">
                             <div class="col-md-10">
+                                {% bootstrap_form comment_form layout='block' %}
                                
                             </div>
                             <div class="col-md-2 mt-4">
