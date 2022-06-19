@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.views import View
-from .forms import SignUpForm, UpdateProfileForm,UpdateUserForm,CreateProfileForm
+from .forms import *
 from django.http import HttpResponseRedirect
 from .models import *
 
@@ -44,6 +44,7 @@ class CustomLoginView(LoginView):
         return super(CustomLoginView,self).form_valid(form)
     
 def viewProfile(request):
+    posts = request.user.posts.all()
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST,request.FILES,instance=request.user.profile)
@@ -62,7 +63,7 @@ def viewProfile(request):
         #     'user_form': user_form
             
         # }  
-    return render(request,'main/view_profile.html', {'profile_form': profile_form,'user_form': user_form})
+    return render(request,'main/view_profile.html', {'profile_form': profile_form,'user_form': user_form, 'posts':posts})
 
 def createProfile(request):
     current_user = request.user
@@ -74,14 +75,10 @@ def createProfile(request):
             profile.save()
             # create_form.save()
             
-            return HttpResponseRedirect('home')
+        return HttpResponseRedirect('home')
     else:
-        create_form = CreateProfileForm(instance=request.user.profile)
-        # context = {
-        #     'create_form':create_form
-            
-            
-        # }      
+        create_form = CreateProfileForm(instance=request.user.profile)      
+             
     return render(request, 'main/hoodform.html', {'create_form':create_form})
         
             
@@ -93,13 +90,41 @@ def index(request):
 
 def home(request):
     posts = Post.objects.all()
+    current_user = request.user
+    if request.method == 'POST':
+        createpost = CreatePost(request.POST,request.FILES)
+        if createpost.is_valid():
+            post = createpost.save(commit=False)
+            post.user = current_user          
+            post.save()
+        return HttpResponseRedirect(request.path_info)
     
+    else:
+        createpost = CreatePost()   
     
-    return render(request, 'main/home.html', {'posts':posts})
+    return render(request, 'main/home.html', {'posts':posts, 'createpost':createpost})
 
-
-
-
-
-def comment(request):
-    return render(request, 'main/comment.html')
+def comment(request, id):
+    
+    post = get_object_or_404(Post, pk=id)
+    comments = post.comment.all()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.user = request.user.profile
+            comment.save()
+            
+        return HttpResponseRedirect(request.path_info)
+    
+    else:
+        comment_form = CommentForm()
+        
+        context = {
+            'post': post,
+            'comments': comments,
+            'comment_form':comment_form,        
+            
+        }
+    return render(request, 'main/comment.html',context)
