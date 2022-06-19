@@ -500,8 +500,8 @@ section {
 }
 .team .member .pic {
   overflow: hidden;
-  width: 150px;
-  border-radius: 50%;
+  /* width: 150px; */
+  /* border-radius: 50%; */
   margin: 0 auto 20px auto;
 }
 .team .member .pic img {

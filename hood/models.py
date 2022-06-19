@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
@@ -42,6 +43,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=100)
     pub_date = models.DateTimeField(auto_now_add=True, blank=True)
+    image = CloudinaryField('image', default=1)
     
     class Meta:
         ordering = ["-pk"]

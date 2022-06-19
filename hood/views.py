@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.views import View
 from .forms import SignUpForm, UpdateProfileForm,UpdateUserForm,CreateProfileForm
 from django.http import HttpResponseRedirect
+from .models import *
 
 
 class SignUpView(View):
@@ -91,8 +92,12 @@ def index(request):
 
 
 def home(request):
+    posts = Post.objects.all()
     
-    return render(request, 'main/home.html')
+    
+    return render(request, 'main/home.html', {'posts':posts})
+
+
 
 
 
