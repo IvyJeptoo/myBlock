@@ -11,17 +11,15 @@
 
                      <div class="col-lg-6 mb-4 mb-lg-0">
                          <img style="height: 250px; width: 250px; margin-left: 5rem; border-radius: 50%;"
-                             src="https://cdn.pixabay.com/photo/2021/08/22/06/24/bird-6564285_960_720.jpg" alt="imgt">
+                             src="{{user.profile.photo.url}}" alt="imgt">
                      </div>
                      <div class="col-lg-6 px-xl-10">
                          <div class=" d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded"
-                             style="padding: 2rem; background: black; margin-bottom: 1rem; min-width: 20rem;">
+                             style="padding: 2rem; background: black; margin-bottom: 1rem; min-width: 25rem;">
                              <h3 class="h2 text-white mb-0">{{user.username}}</h3>
-                             <button type="button" class="btn btn-outline-success btn-sm mt-2" data-toggle="modal"
+                             <button type="button" class="btn btn-outline-success btn-sm mt-3" data-toggle="modal"
                                  data-target="#exampleModal">Edit Profile</button>
                          </div>
-
-
 
                          <!-- Modal -->
                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -29,29 +27,41 @@
                              <div class="modal-dialog modal-dialog-centered" role="document">
                                  <div class="modal-content">
                                      <div class="modal-header">
-                                         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                         <h5 class="modal-title" id="exampleModalLongTitle">Update Profile</h5>
                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                              <span aria-hidden="true">&times;</span>
                                          </button>
                                      </div>
                                      <div class="modal-body">
-                                         ...
-                                     </div>
-                                     <div class="modal-footer">
+                                         <form method="post" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                             <div class="form-row">
+                                                 <div class="col-md-5">
+                                                     <div class="form-group">
+                                                         <label class="small mb-1">Username:</label>
+                                                         {{ user_form.username }}
+                                                         <label class="small mb-1">Email:</label>
+                                                         {{ user_form.email }}
+                                                     </div>
+                                                     <div class="form-group">
+                                                         
+                                                         <hr>
+                                                         <label class="small mb-1">Change Avatar:</label>
+                                                         {{ profile_form.photo }}
+                                                     </div>
+                                                     <label class="small mb-1">Bio:</label> {{ profile_form.bio }}
+                                                 </div>
+                                             </div>
+                                             <br><br>
+                                             <hr>
+                                             <button type="submit" class="btn btn-dark btn-sm">Save Changes</button>
+                                             <button type="reset" class="btn btn-dark btn-sm">Reset</button>
+                                         </form>
+                                     </div>                           
                                         
-                                         <button type="button" class="btn btn-success btn-sm">Save changes</button>
-                                     </div>
                                  </div>
                              </div>
                          </div>
-
-
-
-
-
-
-
-
                          <ul class="list-unstyled mb-1-9">
                              <li class="mb-2 mb-xl-3 display-28"><span
                                      class="display-26 text-secondary me-2 font-weight-600">Bio:</span>{{user.profile.bio}}
@@ -59,10 +69,7 @@
                              <li class="mb-2 mb-xl-3 display-28"><span
                                      class="display-26 text-secondary me-2 font-weight-600">Email:</span>
                                  {{user.email}}</li>
-                             <li class="mb-2 mb-xl-3 display-28"><span
-                                     class="display-26 text-secondary me-2 font-weight-600">Total
-                                     Projects:</span>{{user.profile.project.count}}
-                             </li>
+                             
 
                          </ul>
 
@@ -73,6 +80,7 @@
      </div>
  </div>
  </section>
+ 
   <section id="posts" class="team">
       <div class="container">
 
