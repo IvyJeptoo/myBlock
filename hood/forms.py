@@ -1,4 +1,4 @@
-from dataclasses import field
+from dataclasses import field, fields
 from django import forms
 from django.contrib.auth.models import User
 from .models import *
@@ -101,11 +101,11 @@ class CreateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['photo', 'bio', 'hood']
         
-class CreatePost(forms.ModelForm):
+class PostForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        fields = ['description']
+        fields = ['detail']
         
         
 class CommentForm(forms.ModelForm):
@@ -117,6 +117,18 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
+        
+class AlertForm(forms.ModelForm):
+    class Meta :
+        model = Alert
+        fields = ['priority','message']
+        
+class BusinessForm(forms.ModelForm):
+    
+    class Meta:
+        model = Business
+        fields = ['name','contact','location','description']
+    
     
 
     

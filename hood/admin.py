@@ -5,3 +5,5 @@ from .models import *
 admin.site.register (Profile)
 admin.site.register(Post)
 admin.site.register(Comment)
+admin.site.register(Business)
+admin.site.register(Alert)

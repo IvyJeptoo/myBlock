@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 
 # Create your models here.
 HOODS = (
@@ -12,6 +13,10 @@ HOODS = (
     ('Kileleshwa','Kileleshwa'),
     ('Westlands','Westlands'),
     
+)
+PRIORITY = (
+    ('High Priority','High Priority'),
+    ('Low Priority','Low Priority')
 )
 
 class Profile(models.Model):
@@ -40,23 +45,28 @@ class Profile(models.Model):
         return self.user.username
     
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    detail = models.CharField(max_length=100)
     pub_date = models.DateTimeField(auto_now_add=True, blank=True)
-    image = CloudinaryField('image', default=1)
+    # image = CloudinaryField('image')
     
     class Meta:
         ordering = ["-pk"]
         
+    @classmethod
+    def posts(cls):
+        posts = cls.objects.all()
+        return posts
+        
     
         
     def __str__(self):
-        return self.description
+        return self.detail
     
     
 class Comment(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comment')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comment')
     comment = models.TextField(max_length=100)
     
     class Meta:
@@ -64,6 +74,43 @@ class Comment(models.Model):
         
     def __str__(self):
         return self.comment
+    
+class Business(models.Model):
+    name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='business')
+    contact = models.CharField(max_length=10)
+    location = models.CharField(max_length=100)
+    description = models.CharField(max_length=200)
+    
+    @classmethod
+    def get_post(request, id):
+        try:
+            post = Business.objects.get(pk = id)
+            
+        except ObjectDoesNotExist:
+            raise Http404()
+        
+        return post
+    
+    class Meta:
+        ordering = ["-pk"]
+    
+    
+    def __str__(self):
+        return self.name
+    
+class Alert(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='alerts')
+    priority = models.CharField( max_length=15, choices=PRIORITY)
+    message = models.CharField(max_length=100)
+    pub_date = models.DateTimeField(auto_now_add=True, blank=True)
+    
+    class Meta:
+        ordering = ["-pk"]
+        
+    def __str__(self):
+        return self.message
+    
         
     
     
