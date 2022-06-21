@@ -42,7 +42,7 @@ class Profile(models.Model):
         self.delete()
     
     def __str__(self):
-        return self.user.username
+        return self.bio
     
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
@@ -91,6 +91,11 @@ class Business(models.Model):
             raise Http404()
         
         return post
+    
+    @classmethod
+    def search_business(cls,search_term):
+        businesses = cls.objects.filter(name__icontains=search_term)
+        return businesses
     
     class Meta:
         ordering = ["-pk"]

@@ -53,16 +53,12 @@ def viewProfile(request):
         if profile_form.is_valid() and  user_form.is_valid():             
             user_form.save()         
             profile_form.save()
-        # return redirect (to='viewProfile')
-            return HttpResponseRedirect(request.path_info)    
+            return redirect (to='viewProfile')
+            # return HttpResponseRedirect(request.path_info)    
     else:
         profile_form = UpdateProfileForm(instance=request.user.profile)
         user_form = UpdateUserForm(instance=request.user)
-        # context = {
-        #     'profile_form': profile_form,
-        #     'user_form': user_form
-            
-        # }  
+       
     return render(request,'main/view_profile.html', {'profile_form': profile_form,'user_form': user_form, 'posts':posts})
 
 def createProfile(request):
@@ -80,6 +76,13 @@ def createProfile(request):
         create_form = CreateProfileForm(instance=request.user.profile)      
              
     return render(request, 'main/hoodform.html', {'create_form':create_form})
+
+def visit(request):
+    if request.user.profile.hood == '1':
+        return redirect('createProfile')
+    
+    else:
+        return redirect('home')
         
             
 
@@ -107,7 +110,8 @@ def home(request):
                 post = post_form.save(commit=False)
                 post.user = current_user
                 post.save()
-            return redirect('home')
+                return redirect('home')
+            # return redirect(reverse('home') + '#formThree')
         else:
             business_form = BusinessForm(request.POST)
             if business_form.is_valid():
@@ -123,6 +127,72 @@ def home(request):
     return render(request, 'main/home.html',
                   {'posts': posts, 'alerts': alerts, 'businesses': businesses, 'post_form': post_form,
                    'business_form': business_form, 'alert_form': alert_form})
+
+
+# def home(request):
+    
+#     posts = Post.objects.all()
+#     businesses = Business.objects.all()
+#     alerts = Alert.objects.all() 
+#     alert_form = AlertForm(request.POST)
+#     post_form = PostForm(request.POST)
+#     business_form = BusinessForm(request.POST)           
+    
+    
+            
+
+#     return render(request, 'main/home.html',
+#                   {'posts': posts, 'alerts': alerts, 'businesses': businesses, 'post_form': post_form,
+#                    'business_form': business_form, 'alert_form': alert_form})
+    
+# def alert(request):
+#     current_user = request.user
+    
+#     if request.method == 'POST':
+#         alert_form = AlertForm(request.POST)
+#         if alert_form.is_valid():
+#             alert = alert_form.save(commit=False)
+#             alert.user = current_user
+#             alert.save()
+                    
+#             return HttpResponseRedirect(request.path_info)
+                
+#     else:
+#         alert_form = AlertForm()
+#     return render(request, 'main/home.html',{'alert_form':alert_form})
+
+# def post(request):
+#     current_user = request.user
+#     if request.method == 'POST':
+#                 post_form = PostForm(request.POST)
+#                 if post_form.is_valid():
+#                     post = post_form.save(commit=False)
+#                     post.user = current_user
+#                     post.save()
+#                 return HttpResponseRedirect(request.path_info)
+            
+#     else:
+#         post_form = PostForm()
+#     return render(request, 'main/home.html',{'post_form':post_form})
+
+
+# def business(request):
+#     current_user = request.user
+#     if request.method == 'POST':
+#         business_form = BusinessForm(request.POST)
+#         if business_form.is_valid():
+#             business = business_form.save(commit=False)
+#             business.user = current_user
+#             business.save()
+#             return HttpResponseRedirect(request.path_info)
+#     else:
+#         business_form = BusinessForm()
+        
+#     return render(request, 'main/home.html',{'business_form':business_form})
+            
+        
+    
+    
 
 def comment(request, id):
     
@@ -153,8 +223,16 @@ def comment(request, id):
 def searchBusiness(request):
     if 'search-business' in request.GET and request.GET['search-business']:
         name = request.GET.get('search-business')
-        results = Business.se
-    pass
+        results = Business.search_business(name)
+        message = name
+        context = {
+            'results':results,
+            'message':message
+        }
+        return render(request, 'main/results.html', context)
+    else:
+        message = 'Sorry, such a business does not exist'
+    return render(request, 'main/results.html',{'message':message})
 
 
     
