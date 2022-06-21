@@ -48,7 +48,7 @@ Ivy Jeptoo
 - User can comment on posts.
 
 
-## <a href="https://ivyinsta.herokuapp.com/">Live preview of the site</a>
+## <a href="https://ivyblocks.herokuapp.com/">Live preview of the site</a>
 
 ## Set up instructions and installations
 
