@@ -10,8 +10,7 @@
                  <div class="row align-items-center">
 
                      <div class="col-lg-6 mb-4 mb-lg-0">
-                         <img style="height: 250px; width: 250px; margin-left: 5rem; border-radius: 50%;"
-                             src="{{user.profile.photo.url}}" alt="imgt">
+                         <img style="height: 250px; width: 250px; margin-left: 5rem; border-radius: 50%;" src="{{user.profile.photo.url}}" alt="image">
                      </div>
                      <div class="col-lg-6 px-xl-10">
                          <div class=" d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded"
@@ -48,8 +47,8 @@
                                                          <hr>
                                                          <label class="small mb-1">Change Avatar:</label>
                                                          {{ profile_form.photo }}
-                                                     </div>
-                                                     <label class="small mb-1">Bio:</label> {{ profile_form.bio }}
+                                                         </div>
+                                                         <label class="small mb-1">Bio:</label> {{ profile_form.bio }}
                                                  </div>
                                              </div>
                                              <br><br>
@@ -88,7 +87,7 @@
               <div class="col-lg-4">
                   <div class="section-title" data-aos="fade-right">
                       <h2>Your Posts</h2>
-                      <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem.</p>
+                      <p>here are your total postal contributions</p>
                   </div>
                  
 
@@ -101,15 +100,15 @@
                       {% for post in posts %}
 
                       <div class="col-lg-6">
-                          <div class="member" data-aos="zoom-in" data-aos-delay="100">
+                          <div class="member" data-aos="zoom-in" data-aos-delay="100" style="height: 25rem;">
                               <div class="pic"> <a href="">
-                                      <img style="height: 10rem" src="{{post.image.url}}" class="img-fluid" alt="">
+                                      <img style="height: 5rem" src="{{user.profile.photo.url}}" class="img-fluid" alt="">
 
                                   </a>
                               </div>
                               <div class="member-info">
                                   <span>By:<strong>{{post.user.username}}</strong></span>
-                                  <h4>{{post.description}}</h4>
+                                  <h4>{{post.detail}}</h4>
                                   <span>{{post.pub_date}}</span>
                                   <div class="social">
 

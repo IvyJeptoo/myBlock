@@ -1,15 +1,18 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block content %}
- <section id="business" class="testimonials section-bg">
+ <section id="business" class="testimonials section-bg" style="margin-top: 6rem;">
      <div class="container">
 
          <div class="row">
              <div class="col-lg-4">
                  <div class="section-title" data-aos="fade-right">
                      <h2>Search Results</h2>
-                     <p>Magnam dolores commodi suscipit uisquam quos quisquam cupiditate. Et nemo qui impedit
-                         suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                     {% if results%}
+                     <h5>Found {{results|length}} business{{ results|pluralize }}</h5>
+                     {% else %}
+                     <h5>Found 0 business with {{message}} name</h5>
+                    {% endif %}
                  </div>
                  <!-- Button trigger modal -->
                  <a href="{% url 'home' %}">
@@ -20,11 +23,12 @@
 
 
              </div>
+             {% if results %}
              <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
 
-                 <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                 <div class="" data-aos="fade-up" data-aos-delay="100">
                      <div class="swiper-wrapper">
-                         {% for business in  businesses %}
+                         {% for business in  results %}
                          <div class="swiper-slide">
                              <div class="testimonial-item">
                                  <h3>{{business.name}}</h3>
@@ -36,18 +40,14 @@
                                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
                                  <p><strong>Owner:</strong>{{business.user.username}}</p>
                                  <br>
-                                 <p><strong>Contact:</strong>{{business.contact}}</p>
+                                 <p><strong>Address:</strong>{{business.email}}</p>
                                  <h4>{{business.pub_date}}</h4>
 
                              </div>
                          </div><!-- End testimonial item -->
                          {% endfor %}
-
-
-
-
-
                      </div>
+                     {% endif %}
                      <div class="swiper-pagination"></div>
                  </div>
              </div>
