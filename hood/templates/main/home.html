@@ -42,6 +42,15 @@
 
 <main id="main">
 
+    <div>
+        {% if user.is_authenticated %}
+        
+
+        {% endif %}
+    </div>
+
+
+
     <!-- ======= Testimonials Section ======= -->
     <section id="alerts" class="testimonials section-bg">
         <div class="container">
@@ -64,7 +73,7 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Post Alert</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -78,17 +87,14 @@
                                         <div class="form-row">
                                             <div class="col-md-10 offset-md-1">
                                                 <div class="form-group mt-0 mb-1">
-                                                    <button name="login" class="col-md-12 btn btn-dark" id="login">Post
-                                                        Business</button>
+                                                    <button name="login"  style="margin-left: 23em;" class="ml-2 btn btn-success" id="login">Post
+                                                        </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    
-                                    <button type="button" class="btn btn-success btn-sm">Post</button>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -103,7 +109,9 @@
 
                             <div class="swiper-slide">
                                 <div class="testimonial-item">
-                                    <h3>{{alert.priority}}</h3>
+                                    <h3>{{alert.priority}} <span><a href="{% url 'alerts' alert.id %}">
+                                        <i style="color: red; margin-left: 5em;" class='bx bxs-trash '></i>
+                                    </a></span></h3> 
                                     <hr>
                                     <h5>
                                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
@@ -116,6 +124,9 @@
                                     <p>By:{{alert.user.username}}</p>
                                      <br>
                                     <h4>Posted At:{{alert.pub_date}}</h4>
+                                    <hr>
+                                    
+                                    
                                 </div>
                             </div><!-- End testimonial item -->
 
@@ -155,7 +166,7 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Create Post</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -166,11 +177,13 @@
                                           <input type="hidden" name="form_type" value="formTwo">
                                          {% bootstrap_form post_form %}
 
+
                                          <div class="form-row">
                                              <div class="col-md-10 offset-md-1">
                                                  <div class="form-group mt-0 mb-1">
-                                                     <button name="login" class="col-md-12 btn btn-dark"
-                                                         id="login">Create</button>
+                                                    
+                                                     <button name="login" style="margin-left: 23em;" class="btn btn-success"
+                                                         id="login">Post</button>
                                                  </div>
                                              </div>
                                          </div>
@@ -201,6 +214,9 @@
                                         
                                         <a href="{% url 'comment' post.id %}"><i class="bi bi-chat-fill"
                                                 style="color: white;"></i></a>
+                                                <a href="#">
+                                                    <i style="color: red;" class='bx bxs-trash bx-sm'></i>
+                                                </a>
 
                                     </div>
                                 </div>
@@ -241,7 +257,7 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Post your business</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -255,8 +271,9 @@
                                         <div class="form-row">
                                             <div class="col-md-10 offset-md-1">
                                                 <div class="form-group mt-0 mb-1">
-                                                    <button name="login" class="col-md-12 btn btn-dark" id="login">Post
-                                                        Business</button>
+                                                    <hr>
+                                                    <button name="login" style="margin-left: 23em;" class=" btn btn-success" id="login">Post
+                                                        </button>
                                                 </div>
                                             </div>
                                         </div>
