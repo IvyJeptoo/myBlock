@@ -12,12 +12,7 @@ urlpatterns=[
     path('searchBusiness',views.searchBusiness, name = 'searchBusiness'),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
     path('visit',views.visit, name='visit'),
-
-
-    # path('alert',views.alert, name='alert'),
-    # path('post',views.post, name='post'),
-    # path('business',views.business, name='business'),
-    
+    path('deleteAlert/<id>', views.deleteAlert, name='alerts')  
     
     
 ]
