@@ -40,6 +40,17 @@ class Profile(models.Model):
         
     def delete_profile(self):
         self.delete()
+
+    def save_profile(self):
+        self.save()
+
+    def update_profile(self, user, photo, bio):
+        self.user = user
+        self.photo = photo
+        self.bio = bio
+        self.save()
+    
+    
     
     def __str__(self):
         return self.bio
@@ -48,7 +59,6 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     detail = models.CharField(max_length=100)
     pub_date = models.DateTimeField(auto_now_add=True, blank=True)
-    # image = CloudinaryField('image')
     
     class Meta:
         ordering = ["-pk"]
@@ -62,6 +72,17 @@ class Post(models.Model):
         
     def __str__(self):
         return self.detail
+
+    def create_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
+
+    def update_post(self, user, detail, pub_date):
+        self.user = user
+        self.detail = detail
+        self.save()
     
     
 class Comment(models.Model):
@@ -103,6 +124,22 @@ class Business(models.Model):
     
     def __str__(self):
         return self.name
+
+    def create_business(self):
+        self.save()
+
+    def delete_business(self):
+        self.delete()
+
+    def update_business(self, name, user, contact, location, description):
+        self.name = name
+        self.user = user
+        self.contact = contact
+        self.location = location
+        self.description = description
+        self.save()
+
+
     
 class Alert(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='alerts')
@@ -115,6 +152,19 @@ class Alert(models.Model):
         
     def __str__(self):
         return self.message
+
+    def create_alert(self):
+        self.save()
+
+    def delete_alert(self):
+        self.delete()
+
+    def update_alert(self, user, priority, message, pub_date):
+        self.user = user
+        self.priority = priority
+        self.message = message
+        self.pub_date = pub_date
+        self.save()
     
         
     
