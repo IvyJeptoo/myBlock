@@ -127,69 +127,7 @@ def home(request):
     return render(request, 'main/home.html',
                   {'posts': posts, 'alerts': alerts, 'businesses': businesses, 'post_form': post_form,
                    'business_form': business_form, 'alert_form': alert_form})
-
-
-# def home(request):
-    
-#     posts = Post.objects.all()
-#     businesses = Business.objects.all()
-#     alerts = Alert.objects.all() 
-#     alert_form = AlertForm(request.POST)
-#     post_form = PostForm(request.POST)
-#     business_form = BusinessForm(request.POST)           
-    
-    
-            
-
-#     return render(request, 'main/home.html',
-#                   {'posts': posts, 'alerts': alerts, 'businesses': businesses, 'post_form': post_form,
-#                    'business_form': business_form, 'alert_form': alert_form})
-    
-# def alert(request):
-#     current_user = request.user
-    
-#     if request.method == 'POST':
-#         alert_form = AlertForm(request.POST)
-#         if alert_form.is_valid():
-#             alert = alert_form.save(commit=False)
-#             alert.user = current_user
-#             alert.save()
-                    
-#             return HttpResponseRedirect(request.path_info)
-                
-#     else:
-#         alert_form = AlertForm()
-#     return render(request, 'main/home.html',{'alert_form':alert_form})
-
-# def post(request):
-#     current_user = request.user
-#     if request.method == 'POST':
-#                 post_form = PostForm(request.POST)
-#                 if post_form.is_valid():
-#                     post = post_form.save(commit=False)
-#                     post.user = current_user
-#                     post.save()
-#                 return HttpResponseRedirect(request.path_info)
-            
-#     else:
-#         post_form = PostForm()
-#     return render(request, 'main/home.html',{'post_form':post_form})
-
-
-# def business(request):
-#     current_user = request.user
-#     if request.method == 'POST':
-#         business_form = BusinessForm(request.POST)
-#         if business_form.is_valid():
-#             business = business_form.save(commit=False)
-#             business.user = current_user
-#             business.save()
-#             return HttpResponseRedirect(request.path_info)
-#     else:
-#         business_form = BusinessForm()
-        
-#     return render(request, 'main/home.html',{'business_form':business_form})
-            
+     
         
     
     
@@ -234,5 +172,10 @@ def searchBusiness(request):
         message = 'Sorry, such a business does not exist'
     return render(request, 'main/results.html',{'message':message})
 
+
+def deleteAlert(request, id):
+    alert = Alert.objects.get(pk = id)
+    alert.delete()
+    return HttpResponseRedirect('delete')
 
     
