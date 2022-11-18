@@ -105,6 +105,9 @@ Ivy Jeptoo
 
 - Open the `localhost:8000` to check if the app is running successfully.
 
+- Run tests
+  - `python3 manage.py test`
+
 ## Development
 #### Want to make a contribution to enhance an existing module or fix a bug? Great!
 * Fork the repo
