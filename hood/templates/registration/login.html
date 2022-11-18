@@ -2,7 +2,9 @@
 
 
 {% block content %}
-    <div class="form-content my-3 p-3">
+
+
+    <div class="form-content my-3 p-3" >
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-5">
@@ -28,11 +30,9 @@
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group">
-                                            <a href="{% url 'social:begin' 'github' %}" class="btn btn-link btn-lg active btn-block">Sign in with
-                                                GitHub</a>
+                                            <a href="{% url 'social:begin' 'github' %}" class="btn btn-link btn-lg active btn-block"><i style="color: black;" class='bx bxl-github bx-md' ></i></a>
                                             <a href="{% url 'social:begin' 'google-oauth2' %}"
-                                                class="btn btn-link btn-lg active btn-block">Sign in with
-                                                Google</a>
+                                                class="btn btn-link btn-lg active btn-block"> <span><i style="color: black;" class='bx bxl-google bx-md'></i></span> </a>
                                             
                                             <hr>
                                             <p class="text-center"><strong>OR</strong></p>
@@ -50,15 +50,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-10 offset-md-1">
-                                        <div class="form-group">
-                                            <!-- Add a Remember me functionality -->
-                                            {{ form.remember_me }}
-                                            <label class="form-check-label"> Remember me</label>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group mt-0 mb-1">
